@@ -11,26 +11,47 @@ import java.util.*;
 
 public class BillingSystem {
 
-    private List<CallEvent> callLog = new ArrayList<CallEvent>();
-
-    public void callInitiated(String caller, String callee) {
-        callLog.add(new CallStart(caller, callee));
-    }
-
-    public void callCompleted(String caller, String callee) {
-        callLog.add(new CallEnd(caller, callee));
-    }
-
+	private CallLog callLog;
+	private iCustomerDatabase custDbse;
+    private iTariffDatabase tariffDbse;
+	
+	public BillingSystem(CallLog callLog, CustomerDatabase custDbse, TariffDatabase tariffDbse)
+	{
+		this.callLog = callLog;
+		this.custDbse = custDbse;
+		this.tariffDbse = tariffDbse;
+		
+	}
+	
+	public BillingSystem()
+	{
+		this.callLog = new CallLog();
+		this.custDbse = new CustomerDatabase();
+		this.tariffDbse = new TariffDatabase();
+	}
+		
+	
+	public void callInitiated(String caller, String callee)
+	{
+		callLog.initiateCall(caller, callee);
+	}
+	
+	public void callCompleted(String caller, String callee)
+	{
+		callLog.callCompleted(caller, callee);
+	}
+	
+	
     public void createCustomerBills() {
         
     	System.out.println("Phone events trapped");
     	
-    	for (CallEvent call : callLog)
+    	for (CallEvent call : callLog.getCallLog())
     	{
     		System.out.println(call.getCaller() + " " + call.getCallee() + " " + call.time());
     	}
     	
-    	List<Customer> customers = CentralCustomerDatabase.getInstance().getCustomers();
+    	List<Customer> customers = custDbse.getCustomers();
         for (Customer customer : customers) {
             System.out.println("Creating bill for " + customer.getFullName());
             System.out.println("Phone number: " + customer.getPhoneNumber());
@@ -41,7 +62,7 @@ public class BillingSystem {
 
     private void createBillFor(Customer customer) {
         List<CallEvent> customerEvents = new ArrayList<CallEvent>();
-        for (CallEvent callEvent : callLog) {
+        for (CallEvent callEvent : callLog.getCallLog()) {
             if (callEvent.getCaller().equals(customer.getPhoneNumber())) {
                 customerEvents.add(callEvent);
             }
@@ -65,7 +86,7 @@ public class BillingSystem {
 
         for (Call call : calls) {
 
-            Tariff tariff = CentralTariffDatabase.getInstance().tarriffFor(customer);
+            Tariff tariff = tariffDbse.getTariff(customer);
 
             BigDecimal cost;
 
