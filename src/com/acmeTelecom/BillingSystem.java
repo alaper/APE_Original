@@ -22,9 +22,19 @@ public class BillingSystem {
     }
 
     public void createCustomerBills() {
-        List<Customer> customers = CentralCustomerDatabase.getInstance().getCustomers();
+        
+    	System.out.println("Phone events trapped");
+    	
+    	for (CallEvent call : callLog)
+    	{
+    		System.out.println(call.getCaller() + " " + call.getCallee() + " " + call.time());
+    	}
+    	
+    	List<Customer> customers = CentralCustomerDatabase.getInstance().getCustomers();
         for (Customer customer : customers) {
-            createBillFor(customer);
+            System.out.println("Creating bill for " + customer.getFullName());
+            System.out.println("Phone number: " + customer.getPhoneNumber());
+        	createBillFor(customer);
         }
         callLog.clear();
     }
@@ -59,6 +69,10 @@ public class BillingSystem {
 
             BigDecimal cost;
 
+            System.out.println("Add call");
+            System.out.println("Call duration: " + call.durationSeconds());
+            
+            
             DaytimePeakPeriod peakPeriod = new DaytimePeakPeriod();
             if (peakPeriod.offPeak(call.startTime()) && peakPeriod.offPeak(call.endTime()) && call.durationSeconds() < 12 * 60 * 60) {
                 cost = new BigDecimal(call.durationSeconds()).multiply(tariff.offPeakRate());

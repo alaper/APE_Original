@@ -9,23 +9,30 @@ public class Runner {
 		
 		billingSystem.callInitiated("447722113434", "447766511332");
 		try{
-			sleepSeconds(20);
-			} catch(InterruptedException IE){};
+			sleepSeconds(10);
+			} catch(InterruptedException IE){
+				
+				System.out.println(IE.getMessage());
+			};
 		
 		
 		billingSystem.callCompleted("447722113434", "447766511332");
 		billingSystem.callInitiated("447722113434", "447711111111");
 		try{
-			sleepSeconds(30);
-			} catch(InterruptedException IE){};
+			sleepSeconds(20);
+			} catch(InterruptedException IE){
+				System.out.println(IE.getMessage());
+			};
 		
 		
 		billingSystem.callCompleted("447722113434", "447711111111");
 		billingSystem.callInitiated("447777765432", "447711111111");
 		
 		try{
-			sleepSeconds(60);
-			} catch(InterruptedException IE){};
+			sleepSeconds(30);
+			} catch(InterruptedException IE){
+				System.out.println(IE.getMessage());
+			};
 		
 		
 		billingSystem.callCompleted("447777765432", "447711111111");
