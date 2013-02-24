@@ -15,7 +15,7 @@ public class BillingSystem {
 	private iCustomerDatabase custDbse;
     private iTariffDatabase tariffDbse;
 	
-	public BillingSystem(CallLog callLog, CustomerDatabase custDbse, TariffDatabase tariffDbse)
+	public BillingSystem(CallLog callLog, iCustomerDatabase custDbse, iTariffDatabase tariffDbse)
 	{
 		this.callLog = callLog;
 		this.custDbse = custDbse;

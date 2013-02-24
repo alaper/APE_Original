@@ -14,14 +14,16 @@ public class CallLog {
 	
 	public void initiateCall(String caller, String callee)
 	{
-		callLog.add(new CallStart(caller, callee));
+		initiateCall(caller, callee, System.currentTimeMillis());
 	}
 	
 	 public void callCompleted(String caller, String callee) {
-	        callLog.add(new CallEnd(caller, callee));}
+	     callCompleted(caller, callee, System.currentTimeMillis());
+	 }
 	 
 	 public void callCompleted(String caller, String callee, long time)
 	 {
+		 
 		 callLog.add(new CallEnd(caller, callee, time));
 	 }
 	 

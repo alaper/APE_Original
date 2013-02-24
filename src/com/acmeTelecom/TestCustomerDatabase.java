@@ -11,11 +11,14 @@ public class TestCustomerDatabase implements iCustomerDatabase {
 	public TestCustomerDatabase()
 	{
 		custList = new ArrayList<Customer>();
-		custList.add(new Customer("John","12345","Premium"));
-		custList.add(new Customer("Alan", "54321", "Standard"));
+		
+		
 	}
 	
-	
+	public void addCustomer(String name, String phoneNumber, String pricePlan)
+	{
+		custList.add(new Customer(name, phoneNumber, pricePlan));
+	}
 	
 	public List<Customer> getCustomers()
 	{
