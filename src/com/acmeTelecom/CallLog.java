@@ -3,6 +3,8 @@ package com.acmeTelecom;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.acmetelecom.customer.Customer;
+
 public class CallLog {
 
 	private List<CallEvent> callLog = new ArrayList<CallEvent>();
@@ -35,5 +37,30 @@ public class CallLog {
 	 public void clear()
 	 {
 		 callLog.clear();
+	 }
+	 
+	 public List<Call> getCallLog(Customer customer)
+	 {
+	       List<CallEvent> customerEvents = new ArrayList<CallEvent>();
+	        for (CallEvent callEvent : callLog) {
+	            if (callEvent.getCaller().equals(customer.getPhoneNumber())) {
+	                customerEvents.add(callEvent);
+	            }
+	        }
+
+	        List<Call> calls = new ArrayList<Call>();
+
+	        CallEvent start = null;
+	        for (CallEvent event : customerEvents) {
+	            if (event instanceof CallStart) {
+	                start = event;
+	            }
+	            if (event instanceof CallEnd && start != null) {
+	                calls.add(new Call(start, event));
+	                start = null;
+	            }
+	        }
+	        
+	        return calls;
 	 }
 }

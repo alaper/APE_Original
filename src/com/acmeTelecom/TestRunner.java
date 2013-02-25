@@ -24,9 +24,9 @@ public class TestRunner {
 				
 		iTariffDatabase tstTrfDbse = new TestTariffDatabase();
 		
-		BillingSystem testBSystem = new BillingSystem(cLog, testCustDbse, tstTrfDbse);
+		//BillingSystem testBSystem = new BillingSystem(cLog, testCustDbse, tstTrfDbse);
 		
-		testBSystem.createCustomerBills();
+		//testBSystem.createCustomerBills();
 	}
 	
 	
