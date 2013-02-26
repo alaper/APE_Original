@@ -36,14 +36,11 @@ public class BillGenerator {
     	List<Call> calls = callLog.getCallLog(customer);
     	Tariff tariff = trfDbse.getTariff(customer);
     	Bill bill = new Bill();
-        
-        
-
+    
         for (Call call : calls) {
 
             BigDecimal callCost = calculateCost(tariff, call);
             bill.addLine(call, callCost);
-            
         }
 
         print(customer, bill);
