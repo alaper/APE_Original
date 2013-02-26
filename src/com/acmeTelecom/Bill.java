@@ -1,5 +1,6 @@
 package com.acmeTelecom;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.math.BigDecimal;
 
@@ -9,6 +10,12 @@ public class Bill
 	private BigDecimal total;
 	private List<LineItem> lines;
 	
+	
+	public Bill()
+	{
+		lines = new ArrayList();
+		total = new BigDecimal(0);
+	}
 	
 	public void setTotal(BigDecimal total)
 	{
@@ -30,6 +37,11 @@ public class Bill
 	public BigDecimal getTotal()
 	{
 		return total;
+	}
+	
+	public Boolean isEmpty()
+	{
+		return lines==null;
 	}
 	
 	public String getTotalAsString()
